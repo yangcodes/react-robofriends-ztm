@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import CardList from "./CardList";
-import SearchBox from "./SearchBox";
+import CardList from "../Components/CardList";
+import SearchBox from "../Components/SearchBox";
 
 import "./App.css";
-import { Robots } from "./Robots";
+import { Robots } from "../Robots";
+import Scroll from "../Components/Scroll.js";
 
 class App extends Component {
   constructor() {
@@ -28,8 +29,8 @@ class App extends Component {
     this.setState({ searchfield: event.target.value });
   };
   render() {
-    const filterRobots = this.state.Robots.filter((Robots) => {
-      return Robots.name
+    const filterRobots = this.state.Robots.filter((Robot) => {
+      return Robot.name
         .toLowerCase()
         .includes(this.state.searchfield.toLowerCase());
     });
@@ -41,7 +42,9 @@ class App extends Component {
         <div className="tc">
           <h1 className="f2">RoboFriends</h1>
           <SearchBox searchChange={this.onSearchChange} />
-          <CardList Robots={filterRobots} />
+          <Scroll>
+            <CardList Robots={filterRobots} />
+          </Scroll>
         </div>
       );
     }
